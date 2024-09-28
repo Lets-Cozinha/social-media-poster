@@ -1,8 +1,8 @@
-import { BetaAnalyticsDataClient } from "@google-analytics/data";
-import "dotenv/config";
+import { BetaAnalyticsDataClient } from '@google-analytics/data';
+import 'dotenv/config';
 
 const credentials = JSON.parse(
-  Buffer.from(process.env.GOOGLE_SERVICE_KEY || "", "base64").toString("ascii"),
+  Buffer.from(process.env.GOOGLE_SERVICE_KEY || '', 'base64').toString('ascii')
 );
 
 const analyticsDataClient = new BetaAnalyticsDataClient({
@@ -17,18 +17,18 @@ export const getMostVisitedPages = async () => {
       property: `properties/${propertyId}`,
       dateRanges: [
         {
-          startDate: "7daysAgo",
-          endDate: "today",
+          startDate: '7daysAgo',
+          endDate: 'today',
         },
       ],
       dimensions: [
         {
-          name: "unifiedPagePathScreen",
+          name: 'unifiedPagePathScreen',
         },
       ],
       metrics: [
         {
-          name: "screenPageViews",
+          name: 'screenPageViews',
         },
       ],
       limit: 25,
@@ -44,13 +44,13 @@ export const getMostVisitedPages = async () => {
         })
         .filter(
           (
-            page,
+            page
           ): page is {
             path: string;
             views: string;
           } => {
             return !!page.path;
-          },
+          }
         ) || []
     );
   } catch (error) {
@@ -61,5 +61,12 @@ export const getMostVisitedPages = async () => {
 
 export const getMostVisitedRecipes = async () => {
   const pages = await getMostVisitedPages();
-  return pages.filter((page) => page.path.startsWith("/receitas/"));
+  return pages
+    .filter((page) => {
+      return page.path.startsWith('/receitas/');
+    })
+    .map((page) => {
+      const slug = page.path.replace('/receitas/', '');
+      return { slug, ...page };
+    });
 };

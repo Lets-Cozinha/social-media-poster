@@ -1,5 +1,5 @@
-import 'dotenv/config';
 import qs from 'qs';
+import 'dotenv/config';
 
 const CMS_URL = process.env.CMS_URL;
 
@@ -90,9 +90,66 @@ export const fetchRecipeByPath = async (path: string) => {
         Authorization: `Bearer ${CMS_TOKEN}`,
       },
     }
-  ).then((res) => res.json() as Promise<CMSRecipesResponse>);
-
-  console.log(response);
+  ).then((res) => {
+    return res.json() as Promise<CMSRecipesResponse>;
+  });
 
   return mapRecipe(response.data[0]);
+};
+
+type PosterAttributes = {
+  receita: { data: CMSData<RecipeAttributes> };
+};
+
+type CMSPosterResponse = CMSDataArrayResponse<PosterAttributes>;
+
+export const fetchAlreadyPublishedRecipes = async ({
+  startDate,
+}: {
+  startDate: string;
+}) => {
+  const query = qs.stringify({
+    populate: ['receita'],
+    filters: {
+      createdAt: {
+        $gte: startDate,
+      },
+    },
+  });
+
+  const response = await fetch(`${CMS_URL}/api/lets-cozinha-posters?${query}`, {
+    headers: {
+      Authorization: `Bearer ${CMS_TOKEN}`,
+    },
+  }).then((res) => {
+    return res.json() as Promise<CMSPosterResponse>;
+  });
+
+  return response.data.map((d) => {
+    return { ...mapCMSData(d), receita: mapRecipe(d.attributes.receita.data) };
+  });
+};
+
+export const savePoster = async ({
+  recipe,
+  facebookPostId,
+}: {
+  recipe: Recipe;
+  facebookPostId?: string;
+}) => {
+  const response = await fetch(`${CMS_URL}/api/lets-cozinha-posters`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${CMS_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      data: {
+        receita: recipe.id,
+        facebook_post_id: facebookPostId,
+      },
+    }),
+  });
+
+  return response.json();
 };
