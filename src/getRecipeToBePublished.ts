@@ -6,7 +6,7 @@ import {
 } from './cms';
 import { getMostVisitedRecipes } from './getMostVisitedPages';
 
-const NUMBER_OF_DAYS_AGO_FOR_PUBLISHED_RECIPES = 10;
+const NUMBER_OF_DAYS_AGO_FOR_PUBLISHED_RECIPES = 30;
 
 export const getRecipeToBePublished = async () => {
   console.log('Buscando receita para ser publicada...');

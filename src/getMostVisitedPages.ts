@@ -31,7 +31,7 @@ export const getMostVisitedPages = async () => {
           name: 'screenPageViews',
         },
       ],
-      limit: 25,
+      limit: 50,
     });
 
     return (
