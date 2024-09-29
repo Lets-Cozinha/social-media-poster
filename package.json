@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "Pedro Arantes <pedro@arantespp.com> (https://arantespp.com)",
@@ -13,6 +14,7 @@
     "@ttoss/eslint-config": "^1.24.8",
     "@types/qs": "^6.9.16",
     "eslint": "8",
+    "tsup": "^8.3.0",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   },
@@ -20,9 +22,9 @@
     "@date-fns/tz": "^1.1.2",
     "@google-analytics/data": "^4.8.0",
     "@types/node": "20",
+    "cron": "^3.0.3",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
-    "cron": "^3.0.3",
     "openai": "^4.65.0",
     "qs": "^6.13.0"
   },
