@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsup"
+    "build": "tsup",
+    "deploy": "sh scripts/deploy.sh"
   },
   "keywords": [],
   "author": "Pedro Arantes <pedro@arantespp.com> (https://arantespp.com)",
