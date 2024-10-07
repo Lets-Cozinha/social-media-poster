@@ -4,7 +4,7 @@ import { postRecipe } from './postRecipe';
 /**
  * Post at 11 hours every day (America/Sao_Paulo timezone)
  */
-const cronTime = '0 0 11 * * *';
+const cronTime = '0 3 10 * * *';
 
 new CronJob(cronTime, postRecipe, null, true, 'America/Sao_Paulo');
 

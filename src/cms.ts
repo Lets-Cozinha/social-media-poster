@@ -16,6 +16,10 @@ export type CMSDataArrayResponse<Attributes = Record<string, unknown>> = {
   data: CMSData<Attributes>[];
 };
 
+export type CMSSingleDataResponse<Attributes = Record<string, unknown>> = {
+  data: CMSData<Attributes>;
+};
+
 type ImageAttributes = {
   url: string;
   width: number;
@@ -42,6 +46,7 @@ type RecipeAttributes = {
   slug: string;
   receita: string;
   updatedAt: string;
+  createdAt: string;
   meta_descricao: string;
   keywords: string;
   imagens?: CMSImages;
@@ -71,18 +76,7 @@ const mapRecipe = (data: CMSRecipesResponse['data'][0]) => {
 
 export type Recipe = ReturnType<typeof mapRecipe>;
 
-export const fetchRecipeByPath = async (path: string) => {
-  const slug = path.replace(/^\/receitas\//, '');
-
-  const query = qs.stringify({
-    populate: RECIPES_POPULATE,
-    filters: {
-      slug: {
-        $eq: slug,
-      },
-    },
-  });
-
+export const fetchRecipes = async (query?: string): Promise<Recipe[]> => {
   const response = await fetch(
     `${CMS_URL}/api/lets-cozinha-receitas?${query}`,
     {
@@ -94,7 +88,42 @@ export const fetchRecipeByPath = async (path: string) => {
     return res.json() as Promise<CMSRecipesResponse>;
   });
 
-  return mapRecipe(response.data[0]);
+  return response.data.map(mapRecipe);
+};
+
+export const fetchRecipeByPath = async (path: string): Promise<Recipe> => {
+  const slug = path.replace(/^\/receitas\//, '');
+
+  const query = qs.stringify({
+    populate: RECIPES_POPULATE,
+    filters: {
+      slug: {
+        $eq: slug,
+      },
+    },
+  });
+
+  const recipe = (await fetchRecipes(query))[0];
+
+  return recipe;
+};
+
+export const fetchMostRecentRecipes = async (
+  intervalInDays: number
+): Promise<Recipe[]> => {
+  const query = qs.stringify({
+    populate: RECIPES_POPULATE,
+    sort: 'createdAt:asc',
+    filters: {
+      createdAt: {
+        $gte: new Date(
+          new Date().getTime() - intervalInDays * 24 * 60 * 60 * 1000
+        ).toISOString(),
+      },
+    },
+  });
+
+  return fetchRecipes(query);
 };
 
 type PosterAttributes = {
@@ -152,4 +181,42 @@ export const savePoster = async ({
   });
 
   return response.json();
+};
+
+type LetsCozinhaCMSResponse = CMSSingleDataResponse<{
+  titulo: string;
+  descricao?: string;
+  receitas_favoritas_titulo: string;
+  receitas_favoritas: CMSRecipesResponse;
+}>;
+
+export const getLetsCozinha = async () => {
+  const query = qs.stringify({
+    populate: {
+      receitas_favoritas: {
+        populate: RECIPES_POPULATE,
+      },
+    },
+  });
+
+  const response: LetsCozinhaCMSResponse = await fetch(
+    `${CMS_URL}/api/lets-cozinha?${query}`,
+    {
+      headers: {
+        Authorization: `Bearer ${CMS_TOKEN}`,
+      },
+    }
+  ).then((res) => {
+    return res.json();
+  });
+
+  const receitas_favoritas =
+    response.data.attributes.receitas_favoritas.data.map(mapRecipe);
+
+  const letsCozinha = {
+    ...mapCMSData(response.data),
+    receitas_favoritas,
+  };
+
+  return { letsCozinha };
 };
