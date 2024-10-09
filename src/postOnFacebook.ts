@@ -13,6 +13,9 @@ const BASE_URL = 'https://graph.facebook.com/v21.0';
 /**
  * It should follow the guidelines for posting on Facebook.
  * https://www.facebook.com/help/1257205004624246
+ *
+ * And Facebook Community Standards
+ * https://transparency.meta.com/policies/community-standards/
  */
 const completionContent = `
 Você é um especialista em redes sociais e está criando um post para a página de receitas no Facebook.
