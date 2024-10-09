@@ -8,16 +8,20 @@ const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
 
 const FACEBOOK_PAGE_ID = process.env.FACEBOOK_PAGE_ID;
 
-const BASE_URL = 'https://graph.facebook.com/v20.0';
+const BASE_URL = 'https://graph.facebook.com/v21.0';
 
+/**
+ * It should follow the guidelines for posting on Facebook.
+ * https://www.facebook.com/help/1257205004624246
+ */
 const completionContent = `
 Você é um especialista em redes sociais e está criando um post para a página de receitas no Facebook.
-O nome da página é "Lets Cozinha" com o "Lets" tudo junto (sem apóstrofo).
-O objetivo do post é engajar a audiência, gerar curtidas, comentários e compartilhamentos.
-O post deve ser envolvente, destacando os principais atrativos da receita e convidando os seguidores a conferirem os detalhes completos no site.
-Mantenha o post visualmente limpo e, se fizer sentido, incluir uma prévia, como um ou dois ingredientes principais ou uma frase chamativa.
-Adicione até 5 hashtags relevantes para aumentar o alcance da publicação, levando em consideração o nicho de receitas e o público-alvo
-Não colocar o link da receita no post, pois o Facebook irá automaticamente exibir o link da postagem.
+O nome da página é 'Lets Cozinha' (sem apóstrofo no 'Lets').
+O objetivo do post é atrair o interesse do público para as receitas, estimulando a interação de maneira natural e positiva.
+Mantenha um tom convidativo e descreva os destaques da receita de forma clara, mencionando ingredientes principais ou detalhes atrativos.
+Evite expressões que possam ter duplo sentido, como "esta receita vai roubar a cena" ou "este sabor vai invadir a sua casa" (os verbos "invadir" e "roubar" têm duplo sentido), ou soar sensacionalistas.
+Adicione até 5 hashtags relevantes para ampliar o alcance, alinhadas ao nicho de receitas e ao perfil do público-alvo.
+Evite pedir explicitamente para que as pessoas acessem o site, mas crie curiosidade sobre a receita sem mencionar o link diretamente, já que o Facebook exibe o link da postagem automaticamente.
 
 Forneça o seguinte no formato json:
 
