@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsup",
-    "deploy": "sh scripts/deploy.sh"
+    "deploy": "sh scripts/deploy.sh",
+    "update-descriptions": "tsx scripts/updateDescriptions.ts"
   },
   "keywords": [],
   "author": "Pedro Arantes <pedro@arantespp.com> (https://arantespp.com)",
@@ -24,6 +25,7 @@
     "@google-analytics/data": "^4.8.0",
     "@types/node": "20",
     "cron": "^3.0.3",
+    "csv-parse": "^5.5.6",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "openai": "^4.65.0",

@@ -220,3 +220,18 @@ export const getLetsCozinha = async () => {
 
   return { letsCozinha };
 };
+
+export const updateRecipe = async (id: number, newData: Partial<Recipe>) => {
+  const response = await fetch(`${CMS_URL}/api/lets-cozinha-receitas/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${CMS_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      data: newData,
+    }),
+  });
+
+  return response.json();
+};

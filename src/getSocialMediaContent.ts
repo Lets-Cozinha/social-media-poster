@@ -29,7 +29,7 @@ export const getSocialMediaContent = async ({
     model: 'gpt-4o',
     response_format: { type: 'json_object' },
     n: 1,
-    temperature: 0.2,
+    temperature: 0.3,
   });
 
   return JSON.parse(completion.choices[0].message.content || '{}');
