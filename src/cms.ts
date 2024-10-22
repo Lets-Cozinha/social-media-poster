@@ -113,7 +113,7 @@ export const fetchMostRecentRecipes = async (
 ): Promise<Recipe[]> => {
   const query = qs.stringify({
     populate: RECIPES_POPULATE,
-    sort: 'createdAt:asc',
+    sort: 'createdAt:desc',
     filters: {
       createdAt: {
         $gte: new Date(
@@ -144,6 +144,10 @@ export const fetchAlreadyPublishedRecipes = async ({
         $gte: startDate,
       },
     },
+    pagination: {
+      pageSize: 100,
+    },
+    sort: 'createdAt:desc',
   });
 
   const response = await fetch(`${CMS_URL}/api/lets-cozinha-posters?${query}`, {
