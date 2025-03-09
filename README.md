@@ -16,6 +16,12 @@ Currently, the application posts to the following social media platforms:
 1. It uses OpenAI API to generate the post content.
 1. It posts the content to the social media platforms.
 
+## How to get Meta access token
+
+1. Access [Graph Explorer](https://developers.facebook.com/tools/explorer).
+1. Generate an token using Lets Cozinha App.
+1. Execute `403280719542474?fields=access_token` to get the page token.
+
 ## Scripts
 
 ### `pnpm run update-descriptions`

@@ -6,7 +6,8 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsup",
     "deploy": "sh scripts/deploy.sh",
-    "update-descriptions": "tsx scripts/updateDescriptions.ts"
+    "update-descriptions": "tsx scripts/updateDescriptions.ts",
+    "post-recipe": "tsx scripts/postRecipe.ts"
   },
   "keywords": [],
   "author": "Pedro Arantes <pedro@arantespp.com> (https://arantespp.com)",

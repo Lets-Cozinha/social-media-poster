@@ -82,6 +82,7 @@ export const fetchRecipes = async (query?: string): Promise<Recipe[]> => {
     {
       headers: {
         Authorization: `Bearer ${CMS_TOKEN}`,
+        'Strapi-Response-Format': 'v4',
       },
     }
   ).then((res) => {
@@ -153,6 +154,7 @@ export const fetchAlreadyPublishedRecipes = async ({
   const response = await fetch(`${CMS_URL}/api/lets-cozinha-posters?${query}`, {
     headers: {
       Authorization: `Bearer ${CMS_TOKEN}`,
+      'Strapi-Response-Format': 'v4',
     },
   }).then((res) => {
     return res.json() as Promise<CMSPosterResponse>;
@@ -175,6 +177,7 @@ export const savePoster = async ({
     headers: {
       Authorization: `Bearer ${CMS_TOKEN}`,
       'Content-Type': 'application/json',
+      'Strapi-Response-Format': 'v4',
     },
     body: JSON.stringify({
       data: {
@@ -182,9 +185,15 @@ export const savePoster = async ({
         facebook_post_id: facebookPostId,
       },
     }),
+  }).then((res) => {
+    return res.json();
   });
 
-  return response.json();
+  if (response.error) {
+    throw new Error(response.error?.message);
+  }
+
+  return response;
 };
 
 type LetsCozinhaCMSResponse = CMSSingleDataResponse<{
@@ -208,6 +217,7 @@ export const getLetsCozinha = async () => {
     {
       headers: {
         Authorization: `Bearer ${CMS_TOKEN}`,
+        'Strapi-Response-Format': 'v4',
       },
     }
   ).then((res) => {
@@ -231,6 +241,7 @@ export const updateRecipe = async (id: number, newData: Partial<Recipe>) => {
     headers: {
       Authorization: `Bearer ${CMS_TOKEN}`,
       'Content-Type': 'application/json',
+      'Strapi-Response-Format': 'v4',
     },
     body: JSON.stringify({
       data: newData,

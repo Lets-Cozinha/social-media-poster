@@ -8,7 +8,7 @@ import {
 } from './cms';
 import { getMostVisitedRecipes } from './getMostVisitedPages';
 
-const NUMBER_OF_DAYS_AGO_FOR_PUBLISHED_RECIPES = 50;
+const NUMBER_OF_DAYS_AGO_FOR_PUBLISHED_RECIPES = 180;
 
 export const getRecipeToBePublished = async (): Promise<Recipe> => {
   console.log('Buscando receita para ser publicada...');
@@ -101,3 +101,7 @@ export const getRecipeToBePublished = async (): Promise<Recipe> => {
 
   return await fetchRecipeByPath(mostVisitedRecipesPaths[0].path);
 };
+
+// getRecipeToBePublished().then((recipe) => {
+//   console.log('Receita para ser publicada:', recipe);
+// });
