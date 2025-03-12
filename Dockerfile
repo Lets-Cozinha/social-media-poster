@@ -1,4 +1,4 @@
-FROM node:20-slim as base
+FROM node:23.7-alpine as base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 # https://github.com/nodejs/corepack
