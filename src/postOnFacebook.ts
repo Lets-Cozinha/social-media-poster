@@ -176,13 +176,9 @@ const postPhotoPostOnFacebook = async (recipe: Recipe) => {
 };
 
 export const postOnFacebook = async (recipe: Recipe) => {
-  /**
-   * 25% chance of posting a link post to increase social media sharing
-   * to improve SEO.
-   */
-  const random = Math.floor(Math.random() * 4);
+  const random = Math.random() * 3;
 
-  if (random === 0) {
+  if (random <= 1) {
     return postLinkPostOnFacebook(recipe);
   }
 
