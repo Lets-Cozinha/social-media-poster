@@ -61,7 +61,7 @@ Forneça o seguinte no formato json:
 `;
 
 const postLinkPostOnFacebook = async (recipe: Recipe) => {
-  console.log('Postando no Facebook sobre a receita: ', recipe.nome);
+  console.log('Postando link no Facebook sobre a receita: ', recipe.nome);
 
   console.log(`Gerando conteúdo para o post no Facebook...`);
   const content = await getSocialMediaContent({
@@ -117,7 +117,7 @@ const uploadImage = async (imageUrl: string) => {
 };
 
 const postPhotoPostOnFacebook = async (recipe: Recipe) => {
-  console.log('Postando no Facebook sobre a receita: ', recipe.nome);
+  console.log('Postando foto no Facebook sobre a receita: ', recipe.nome);
 
   if (!recipe.imagens) {
     return postLinkPostOnFacebook(recipe);

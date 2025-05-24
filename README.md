@@ -21,6 +21,8 @@ Currently, the application posts to the following social media platforms:
 1. Access [Graph Explorer](https://developers.facebook.com/tools/explorer).
 1. Generate an token using Lets Cozinha App.
 1. Execute `403280719542474?fields=access_token` to get the page token.
+1. Get the `access_token` from the response and extends on [Access Token Debugger](https://developers.facebook.com/tools/debug/accesstoken/).
+1. Copy the `access_token` and paste it in the `.env` file.
 
 ## Scripts
 
